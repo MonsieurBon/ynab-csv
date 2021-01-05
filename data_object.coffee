@@ -78,6 +78,9 @@ class window.DataObject
     @.converted_json(limit, lookup).forEach (row) ->
       row_values = []
       ynab_cols.forEach (col) ->
-        row_values.push row[col]
+        if col == 'Payee' && !!row[col]
+          row_values.push '"' + row[col] + '"'
+        else
+          row_values.push row[col]
       string += row_values.join(',') + "\n"
     string
